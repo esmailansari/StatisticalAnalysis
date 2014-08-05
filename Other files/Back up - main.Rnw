@@ -1,0 +1,559 @@
+
+
+\documentclass[review,authoryear, 12pt]{elsarticle}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{filecontents}
+\usepackage{comment}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath,bm}
+\usepackage[utf8]{inputenc}
+\usepackage{rotating}
+\usepackage{natbib}
+
+%\journal{Geothermics Journal}
+
+\begin{document}
+%\nocite{*}
+\begin{frontmatter}
+
+%\author{Esmail Ansari}
+%\ead{eansar2@lsu.edu}
+%\author{Richard Hughes}
+
+\title{Statistical Analysis of the Gulf Coast Geothermal Reservoirs}
+%\address{Louisiana State University}
+
+\begin{abstract}
+
+Important parameters of the Louisiana's geothermal reservoirs are investigated. They are: permeability, porosity, average reservoir temperature, thickness, length (i.e. area\textsuperscript{0.5}), temperature gradient of earth, reservoir dip angle, injection temperature and well flow rate. The data, used to create the range and distribution of the parameters, come from previous reports on the subject. These data were transformed using appropriate methods and a distribution is fit to the transformed data. Specifically, a new approach for calculating the reservoir dip angle is presented which requires bootstraping the temperature gradient of the earth in the area. This paper provides ground for experimental design and scaling analysis studies. 
+
+\end{abstract}
+
+
+\end{frontmatter}
+
+
+\section{Available data and limitaions}
+The geothermal data used in this study is based on the reports published by  \citet{john1998gulf} and \citet{bassiouni1980evaluation}. The first source contains the data collected in the Wells of Opportunity and Design Wells programs. 
+ 
+
+
+
+The second source prepared by \citet{bassiouni1980evaluation} ranks the fifteen most promising geopressure-geothermal prospects in the Louisiana and supplements an estimate of the total energy for each prospect based on the reservoir volume and its temperature. He details and recommends six prospect in the southern Louisiana as potential for further tests. All the fifteen reservoirs are used here. 
+
+
+Having said all these limitations, we assume that the data is collected randomly and prepare a dynamic document. Any new information can go into the accompanied \texttt{.csv} file and this document can be regenerated. 
+
+\section{Permeability}
+The geological processes that create permeability in reservoir rocks appear to leave permeability distributed around the geometric mean (log normal distribution). Because data come from different locations, a box-cox transform of the data is used instead of Dykstra-Parsons's coefficient of variation. A log-normal distribution is then fit to the transformed data using \texttt{fitdistrplus} package.
+
+
+<<results='hide',echo=FALSE,warning=FALSE>>=
+# cleaning variables and closing plots
+rm(list = ls())
+if (!is.null(dev.list())) dev.off()
+suppressPackageStartupMessages(require(RColorBrewer))
+suppressPackageStartupMessages(require(car))
+suppressPackageStartupMessages(require(fitdistrplus))
+suppressPackageStartupMessages(require(MASS))
+suppressPackageStartupMessages(require(Hmisc))
+suppressPackageStartupMessages(require(map))
+suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(xtable))
+suppressPackageStartupMessages(require(boot))
+@
+
+<<fig.height=6,results='hide',echo=FALSE,warning=FALSE,fig.cap="Location of only source 1 geothermal reservoirs. There are also three reservoirs from the Texas which are not shown here. Red dots shows permeability and varies between 7 and 500 md.">>=
+# Reading the Data
+mydata <- read.csv("Well-Test summary.csv", header=TRUE )
+#mapping the permeability data
+data<-mydata
+mydata <- mydata[mydata$long<0,]
+names(mydata)[names(mydata)=="Flow.Rate..BPD."]="Flow_Rate"
+states <- map_data("county","louisiana")
+
+p <- ggplot()
+p <- p + geom_polygon( data=states, aes(x=long, y=lat, group = group),colour="white")
+p <- p + geom_jitter(data=mydata,  aes(x=long, y=lat, size = mydata$Permeability..mD.,color="coral1"),label=rownames(mydata)) + theme(legend.position="none")
+print(p)
+@
+
+<<echo=FALSE,results='asis'>>=
+perm.data<-data[!is.na(data$Permeability..mD.),]
+permeability<-perm.data$Permeability..mD.
+poro.data <- data[!is.na(data$Porosity),]
+porosity  <- poro.data$Porosity
+temp.data <- data[!is.na(data$Temp...degree.F.),]
+temperature  <- (temp.data$Temp...degree.F.-32)*5/9
+thick.data <- data[!is.na(data$Average.thickness.ft),]
+thickness  <- thick.data$Average.thickness.ft*0.3048
+area.data <- data[!is.na(data$Area.SqMi),]
+area  <- area.data$Area.SqMi*(1609.34^2);
+length <- sqrt(area)
+depth.temp = data.frame(depth=(data$Depth..ft.*(0.3048)),
+                        temp=((data$Temp...degree.F.-32)*5/9))
+depth.temp = depth.temp[!is.na(depth.temp$depth),]
+depth.temp = depth.temp[!is.na(depth.temp$temp), ]
+@
+
+<<fig.height=6,echo=FALSE,warning=FALSE,fig.cap="Wells that have reported permeability. Each parameter may have some of the information missing which is clear from the \\texttt{.csv} file and we don't plot this graph for each parameter to make the report succinct.">>=
+perm.data$color[perm.data$Source=="Source 1"]<-'red'
+perm.data$color[perm.data$Source=="Source 2"]<-'blue'
+
+dotchart(permeability,labels=perm.data$wellname,groups=perm.data$Source,cex=0.8, color=perm.data$color,xlab="Permeability (md)")
+
+
+@
+
+<<results='hide', echo=FALSE>>=
+opar<-par(no.readonly=TRUE)
+#fit.perm <- fitdist(perm.data$Permeability..mD.,"lnorm","mme")
+#plot(fit.perm)
+#summary(fit.perm)
+@
+
+<<results='hide',fig.show='hide', echo=FALSE>>=
+bc <- boxcox(permeability~1)
+lambda <- bc$x[which.max(bc$y)]
+@
+
+<<echo=FALSE,results='hide'>>=
+# Residuals
+## boxCox(permeability~1) # gives lambda = 0.0606
+qq.bc <- qqnorm(sort(permeability^(lambda)),type="l",plot.it=FALSE)
+qq.none <- qqnorm(sort(permeability),plot.it=FALSE)
+qq.log <- qq.log <- qqnorm(sort(log(permeability,10)),
+                           type="l",plot.it=FALSE)
+y.bc <- (qq.bc$y - mean(qq.bc$y))/sd(qq.bc$y)
+y.none <- (qq.none$y - mean(qq.none$y))/sd(qq.none$y)
+y.log <- (qq.log$y - mean(qq.log$y))/sd(qq.log$y)
+y.lim <- range(y.bc,y.log,y.none)
+y.lim[2] <- 4
+x.lim <- range(qq.bc$x,qq.log$x,qq.none$x)
+#plot(1,1,xlim=x.lim,ylim=y.lim,xlab="Theoretical quantile",
+#     ylab="Standardized observed quantile",
+#     type="n",xpd=FALSE)
+#abline(0,1,lty=2)
+#lines(qq.none$x, y.none, lty=1,col="red")
+#lines(qq.log$x, y.log, lty=1, col="blue")
+#lines(qq.bc$x, y.bc, lty=1, col="orange")
+#legend("bottomright",c("Normal","No transform","Log", "Box-Cox"#),lty=c(2,1,1,1),col=c("black","red","blue","orange"),bty="n")
+@
+
+<<echo=FALSE,fig.cap="result in good result.">>=
+fit.perm <- fitdist(permeability^lambda,"lnorm","mme")
+plot(fit.perm,col='paleturquoise4')
+@
+
+\pagebreak
+
+\section{Porosity, thickness, length and temperature}
+The main underlying assumptions is that the samples represent all the geothermal reservoirs in the Louisiana and sum of the geological processes that has created them, has lefted them having a Gaussian distribution. Porosity, thickness, length and temperature data were transformed using a normal score transform and a gaussian distribution is then fitted on them. 
+
+<<echo=FALSE,results='asis'>>=
+DataFrame=floor(data.frame(permeability.mD=as.matrix(summary(permeability)),porosity=as.matrix(summary(porosity)),temperature.C=as.matrix((summary(pretty(temperature)))),thickness.m=as.matrix(summary(thickness)),
+length.m=as.matrix(summary(length))))
+
+print(xtable(DataFrame,caption='\\bf{summary of available data}'),include.rownames=TRUE,caption.placement='bottom')
+@
+
+%-------------------------------------------------
+%                    Porosity
+%-------------------------------------------------
+
+
+<<echo=FALSE,fig.cap="porosity data">>=
+poro.data$color[poro.data$Source=="Source 1"]<-'red'
+poro.data$color[poro.data$Source=="Source 2"]<-'blue'
+par(opar)
+#dotchart(porosity,labels=poro.data$wellname,groups=poro.data$Source,cex=0.8, color=poro.data$color,xlab='Porosity')
+@
+
+<<echo=FALSE,fig.cap="normalized porosity using normal score transform",fig.height=5>>=
+poro.vec <- sort(porosity)
+P.vec <- (1:length(poro.vec))/(length(poro.vec) + 1)
+poro.ns <- qnorm(P.vec); 
+poro.ns <- poro.ns*sd(poro.vec)+mean(poro.vec)
+par(mfrow = c(1, 2)) ; 
+#hist(porosity)
+#hist(poro.ns,mian='normalized porosity')
+#poro.stat<-list(porosity.sd=sd(poro.ns),porosity.mean=mean(poro#.ns))
+#print(poro.stat)
+@
+
+%-------------------------------------------------------
+%                    Average reservoir temperature
+%--------------------------------------------------------
+
+
+<<echo=FALSE>>=
+#par(mar=c(4,10,4,2))
+#dotchart(temperature,labels=temp.data$wellname,
+#         cex=0.9,bg='red',color="red",
+#         xlab="Average temperature (C)",
+#         main="Temperature data used in the study")
+
+
+
+temp.vec <- sort(temperature)
+P.vec <- (1:length(temp.vec))/(length(temp.vec) + 1)
+temp.ns <- qnorm(P.vec); 
+temp.ns <- temp.ns*sd(temp.vec)+mean(temp.vec)
+#par(mfrow = c(1, 2)) ; 
+#hist(temperature)
+#hist(temp.ns)
+#temp.stat<-list(temperature.sd=sd(temp.ns),
+#                temperature.mean=mean(temp.ns))
+#print(temp.stat)
+@
+
+
+
+%-----------------------------------------------
+%                       Thicknesss 
+%-----------------------------------------------
+
+
+<<echo=FALSE>>=
+
+
+#par(mar=c(4,10,4,2))
+#dotchart(thickness,labels=thick.data$wellname,
+#         cex=0.8,bg='chocolate4',color="chocolate4")
+@
+
+<<echo=FALSE>>=
+thick.vec <- sort(thickness)
+P.vec <- (1:length(thick.vec))/(length(thick.vec) + 1)
+thick.ns <- qnorm(P.vec); 
+thick.ns <- thick.ns*sd(thick.vec)+mean(thick.vec)
+#par(mfrow = c(1, 2)) ; 
+#thick.stat<-list(thickness.sd=sd(thick.ns),
+#                 thickness.mean=mean(thick.ns))
+#print(thick.stat)
+@
+
+<<echo=FALSE>>=
+fit.thick <- fitdist(thick.ns,"norm","mme")
+#plot(fit.thick)
+#summary(fit.thick)
+@
+
+%-----------------------------------------------
+%                          Length
+%-----------------------------------------------
+
+<<echo=FALSE>>=
+#par(mar=c(4,10,4,2),mfrow=c(1,2))
+#par(fig=c(0,0.5,0,1))
+#dotchart(thickness,labels=thick.data$wellname,
+#         cex=0.8,bg='olivedrab',color='olivedrab',xlab='Thickness (m)')
+#par(fig=c(0.5,1,0,1),new=TRUE)
+#dotchart(length,cex=0.8,bg='orange',color='orange',xlab='Length #(m)')
+
+@
+
+<<echo=FALSE>>=
+length.vec <- sort(length)
+P.vec <- (1:length(length.vec))/(length(length.vec) + 1)
+length.ns <- qnorm(P.vec); 
+length.ns <- length.ns*sd(length.vec)+mean(length.vec)
+#par(mfrow = c(1, 2)) ; 
+#hist(length)
+#hist(length.ns)
+#length.stat<-list(length.sd=sd(length.ns),
+#                  length.mean=mean(length.ns))
+#print(length.stat)
+@
+
+<<echo=FALSE>>=
+fit.length <- fitdist(length.ns,"norm","mme")
+#plot(fit.length)
+#summary(fit.length)
+@
+
+<<histplots, echo=FALSE,out.width='7cm', out.height='7cm', fig.show='hold',fig.cap="Original parameter distributions">>=
+histplot <- function(Parameter,Para.name,Color,Alpha=8,N.breaks=5){
+par(fig=c(0,0.8,0,0.8))
+hist(Parameter,freq=FALSE,breaks=N.breaks,xlab=Para.name,col=adjustcolor(Color,alpha=Alpha/8),main=NULL)
+rug(jitter(Parameter), col=Color)
+par(fig=c(0,0.8,0.55,1),new=TRUE)
+boxplot(Parameter,horizontal=TRUE,axes=FALSE,col=adjustcolor(Color,alpha=(Alpha-5)/8))
+}
+
+histplot(porosity,'porosity','tan2')
+histplot(thickness,'thickness (m)','khaki4')
+histplot(length,'length (m)','plum4')
+histplot(temperature,'temperature (C)','red4')
+@
+
+
+<<normhistplots, echo=FALSE,out.width='7cm', out.height='7cm', fig.show='hold',fig.cap="Normalized parameter distributions using normal score transform">>=
+histplot(poro.ns,'porosity','tan2',8,8)
+histplot(thick.ns,'thickness (m)','khaki4',8)
+histplot(length.ns,'length (m)','plum4',8)
+histplot(temp.ns,'temperature (C)','red4',8)
+@
+
+<<echo=FALSE,fig.cap='Gaussian distribution fitted to the normalized porosity. As expected, the normalized variable also has'>>=
+fit.poro <- fitdist(poro.ns,"norm","mme")
+plot(fit.poro,col=adjustcolor('tan2',alpha=5/8))
+#summary(fit.poro)
+poro.stat<-list(poro.sd=as.data.frame(fit.poro$estimate)['sd',],poro.mean=as.data.frame(fit.poro$estimate)['mean',])
+@
+
+
+<<echo=FALSE>>=
+fit.temp <- fitdist(temp.ns,"norm","mme")
+#plot(fit.temp,col=adjustcolor('khaki4',alpha=5/8))
+#summary(fit.temp)
+@
+
+
+
+\pagebreak
+
+%-----------------------------------------------
+%                 Earth thermal gradient
+%-----------------------------------------------
+\section{Geothermal gradient}
+Scaling analysis prescribes the geothermal gradient of earth in the buoyancy group. Depth and temperature data from the wells can be used to estimate the geothermal gradient (Figure \ref{Fig:geothermal_gradient}). 
+\citet{Gray2010} study the geothermal gradient for the wells on the Guydan dome and concludes that sediments shallower than 3900 m have an average thermal gradient. A value higher than the estimated value is expected for the geothermal gradient in the geothermal reservoirs. 
+
+
+
+<<geothermal_gradient,echo=FALSE,fig.cap="The dark tan region shows 95\\% confidence interval band around the predicted mean for the temperature of the geothermal reservoirs in Louisiana at each depth. Geothermal gradient is around 25 C/km in most of the world \\citep{fridleifsson2008possible} and the average value estimated here turned out to be very close. The light tan shows the 95\\% confidence interval for the mean of any random sample (source code modified from \\citet{white_note}).",fig.lp="Fig:">>=
+
+depth.temp$temp.20=depth.temp$temp-20
+depth.temp.model = lm(temp.20~depth-1,data=depth.temp)
+par(mfrow=c(1,1))
+# plotting temp vs. depth
+# y.noise is depth
+# x is temp
+n.plot <- 100
+x <- depth.temp$temp
+y.noise <- depth.temp$depth
+fit.y <- lm (y.noise ~ x -1)
+x.plot <- data.frame(x=seq(min(x),max(x),length=n.plot))
+pred <- predict(fit.y,newdata=x.plot,se.fit=TRUE,
+                interval="confidence")
+fit.se <-pred$se.fit
+fit.fit <- pred$fit[,"fit"]
+conf.lwr <- pred$fit[,"lwr"]
+conf.upr <- pred$fit[,"upr"]
+pred <- predict(fit.y, newdata=x.plot, se.fit=FALSE,
+                interval="prediction")
+pred.lwr <- pred[,"lwr"]  #pred[["lwr"]] does not work neigher ...
+pred.upr <- pred[,"upr"]
+y.lim <- range(y.noise, fit.fit, conf.lwr, conf.upr, 
+               pred.lwr,pred.upr) #returns max and min
+plot(0,0,xlim=range(x,x.plot),ylim=y.lim,
+     ylab="Depth (m)",type="n",axes=FALSE) #plot (0,0)
+axis(2)
+axis(3)
+mtext("Temperature (C)", side=3, line=3) 
+x.plot <- x.plot[,1] 
+#because length of data frame is the number of its columns.
+lines(x.plot,fit.se,lty=1,col=2)  
+#class of x.plot can not be data frame. 
+polygon(c(x.plot,rev(x.plot)),c(pred.lwr,rev(pred.upr)), 
+        col=adjustcolor(7,alpha=1/8),lty=0)
+polygon(c(x.plot,rev(x.plot)),c(conf.lwr,rev(conf.upr)), 
+        col=adjustcolor(2,alpha=1/8),lty=0)
+lines(x.plot,fit.fit,lty=2,col=1)
+points(135,-4200,pch=21,bg="red",col='red',,cex=1.5)
+#abline(h=-4200,lty=5,col='red')
+#abline(v=135,lty=5,col='red')
+text(145,-3880,sprintf("Temp = %.4f Depth + 25",depth.temp.model$coefficients))
+text(140,-4200,sprintf("Camerina A"),cex=0.7)
+ix <- sort(x,index=TRUE)$ix
+points(x,y.noise,pch=21,col=1,bg="white")
+@
+
+
+%-------------------------------------------------------
+%                Bootstraping thermal gradient
+
+<<echo=FALSE>>=
+Tau <- function(formula, data, indices){
+  d <- data[indices,]
+  fit <- lm(formula,data=d)
+  return(fit$coefficients)
+  
+}
+
+library(boot)
+boot.results <- boot(data=depth.temp, statistic=Tau, R=1000, formula=-temp.20~depth-1)
+@
+<<bootstrapplot, echo=FALSE, fig.show='hold',fig.cap="Bootstrapped geothermal gradient of earth for hot saline aquifers of the Louisiana. ",fig.lp="Fig:">>=
+plot(boot.results)
+@
+
+<<>>=
+print(boot.ci(boot.results,type=c("bca")))
+@
+
+
+%-----------------------------------------------
+%                Injection temperature
+%-----------------------------------------------
+\section{Injection temperature}
+Injection temperature is an important parameter. \citet{feng2012numerical} provides 
+
+
+%-----------------------------------------------
+%               Dip Angle
+%-----------------------------------------------
+\section{Reservoir dip angle}
+According to \citet{Gray2010}, the range of the dip angle for Camerina A reservoir is from 1.2 to 28. Calculating the reservoir dip angle by investigating the gradient of the structural maps would be  a challenge and also the local dip angle is less interesting to us than the average reservoir dip angle. This can be done knowing that the temperature of the Louisiana's geothermal reservoirs would remain lower than $T_{max}$ and by using reservoir's temperature gradient, average temperature and its length( Fig. \ref{./figure/schematic}):
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\linewidth]{./figure/schematic}
+\caption{Regular design.} 
+\label{Fig:Schematic}
+\end{figure}
+
+
+%\begin{equation}
+%\tau \frac{L}{2} \sin \alpha + T_{avg} = T_{max}
+%\end{equation}
+
+\begin{equation}
+\label{Eq:DipModel}
+\alpha = \sin^{-1} \left(\frac{2(T_{max}-T_{avg})}{\tau L}\right)
+\end{equation}
+
+in which:
+
+\begin{eqnarray}
+\tau \sim \mathcal{N}(\mu_\tau,\sigma^2_\tau) \\
+T_{avg} \sim \mathcal{N}(\mu_T,\sigma^2_T) \\
+L \sim \mathcal{N}(\mu_L,\sigma^2_L) \\
+T_{max}=?
+\end{eqnarray}
+
+Knowing that the dip angle of Eq. \ref{Eq:DipModel} can not be more than 90 degrees, we can find $T_{max}$ with the probability of $0.99*0.99=0.9801$ by constraining the fraction in Eq. \ref{Eq:DipModel} to its maximum (i.e. one) which means:
+
+\begin{equation}
+\label{Eq:TmaxSolution}
+T_{max} = ({\mu_T-3\sigma_T})+\frac{(\mu_{\tau}-3\sigma_{\tau})(\mu_{L}-3\sigma_L)}{2}
+\end{equation}
+
+<<echo=FALSE>>=
+trunc.draws <-function(x, xlim) {
+  x[x<xlim[1]]    <- xlim[1]
+  x[x>xlim[2]]    <- xlim[2]
+  return(x)
+}
+T.mean  <- fit.temp$estimate[[1]]
+T.sd    <- fit.temp$estimate[[2]]
+T.lim   <- c(T.mean-3*T.sd,T.mean+3*T.sd)
+
+Length.mean  <- fit.length$estimate[[1]]
+Length.sd    <- fit.length$estimate[[2]]
+Length.lim   <- c(Length.mean-3*Length.sd,Length.mean+3*Length.sd) 
+
+fit.tau <- fitdist(as.vector(boot.results$t),"norm","mme")
+Tau.mean   <- fit.tau$estimate[[1]]
+Tau.sd     <- fit.tau$estimate[[2]]
+Tau.lim    <- c(Tau.mean-3*Tau.sd,Tau.mean+3*Tau.sd) 
+
+T_max=floor(T.lim[[1]]+(Tau.lim[[1]]*Length.lim[[1]])/2)
+@
+
+Once $T_{max}$  is found to be ca. \Sexpr{T_max} $^\circ C$, we can solve Eq. \ref{Eq:DipModel} using a sampling method (we used Hammersley Sequence Sampling) to find the dip angle of the earth layers. 
+
+
+<<echo=FALSE,out.height='10cm',out.width='10cm',fig.align='center'>>=
+source('prime.R')
+Factors <- list('T.avg','Length','Tau')
+N=5000
+T.avg.dist = trunc.draws(rnorm(N,T.mean,T.sd),T.lim)
+Length.dist = trunc.draws(rnorm(N,Length.mean,Length.sd),Length.lim)
+Tau.dist = trunc.draws(rnorm(N,Tau.mean,Tau.sd),Tau.lim)
+Fact.dist <- data.frame(T.avg=T.avg.dist,Length=Length.dist,Tau=Tau.dist)
+HSS.select <- as.data.frame(matrix(rep(NA,N*length(Factors)),
+                                   c(N,length(Factors))))
+colnames(HSS.select) <- Factors
+colnames(Fact.dist)  <-Factors
+
+QuasiMC <- hammersley(prime(50)[1:length(Factors)],N)
+
+  
+for (i in 1:length(Factors)){
+  HSS.select[,i] <- QuasiMC[,i]*(max(Fact.dist[Factors[[i]]])-
+                                   min(Fact.dist[Factors[[i]]]))+ 
+                                  min(Fact.dist[Factors[[i]]])
+}
+
+Dip.dist = rep(0,N)
+Dip.dist <- asin(2*(T_max-HSS.select[,1])/(HSS.select[,2]*HSS.select[,3]))
+Dip.dist <- Dip.dist/pi*180
+
+
+source('dip.dist.plot.R')
+dip.dist.plot(Dip.dist)
+
+@
+
+
+
+
+
+
+
+%-----------------------------------------------
+%                   Flow Rate
+%----------------------------------------------
+\section{Flow Rate}
+Flow rate is also a very important parameter and rate of power generation directly depends on it. It seems the reported flow rate is restricted by TPR curves because the reservoir can sustain higher rates and in fact Gulf Coast geopressured aquifers came to attention for their geohydraulic potential rather than their geothermal energy \citep{Hawkins1977}. The well test data shows a flow rate of ca. 250 to 4250 $m/day$ (Figure \ref{Fig:flowrate}).
+
+
+McMullan and Bassiouni, recognizing that maximizing flow-rate maximized NPV, presented an equation to predict brine flow-rate given a constant tubing head pressure. Additionally, the results of the study showed that the location of the well in respect to the aquifer was relatively unimportant compared to the effect of tubing size, skin, and initial aquifer properties which would be expected based on Dietz inflow relations.
+
+
+The flow rate of DHE (Down-hole heat exchanger) varies in the range () \citep{feng2012numerical}
+Previous DHE design has single point fluid inlet and single point fluid outlet  and is not insulated ()
+The idea of down-hole heat exchanger 
+
+
+
+
+<<flowrate,echo=FALSE,out.width='7cm', out.height='7cm',fig.align='center',fig.cap='Well test data for flow rate',fig.lp="Fig:">>=
+flow.data<-data[!is.na(data$Flow.Rate..BPD.),]
+flowrate<-flow.data$Flow.Rate..BPD.*0.119240471
+#dotchart(flowrate,labels=flow.data$wellname,cex=0.8, color='blue',xlab="Flow rate (m3/day)")
+histplot(flowrate,'flow rate (m3/day)','blue',Alpha=8,N.breaks=5)
+@
+
+\section{Results summary}
+%-------------------------------------------
+%               Results summary table
+%-------------------------------------------
+<<echo=FALSE,results='asis'>>=
+DataFrame = data.frame(permeability.mD=as.matrix(summary(fit.perm)$estimate))
+
+print(xtable(DataFrame,caption='{Summary of the log-normal fit to the permeability}'),include.rownames=TRUE,caption.placement='bottom')
+@
+
+<<echo=FALSE,results='asis'>>=
+
+DataFrame = data.frame(porosity=as.matrix(summary(fit.poro)$estimate),tickness.m=as.matrix(summary(fit.thick)$estimate),length.m=as.matrix(summary(fit.length)$estimate),temperature.C=as.matrix(summary(fit.temp)$estimate))
+
+print(xtable(DataFrame,caption='{Summary of the gaussian fit to the porosity, thickness, length and temperature}'),include.rownames=TRUE,caption.placement='bottom')
+@
+
+%\section*{References}
+\bibliographystyle{elsarticle-harv}
+%\bibliography{<your-bib-database>}
+\bibliography{Bibliography}
+%\bibliography{}
+
+
+\end{document}

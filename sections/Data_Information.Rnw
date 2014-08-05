@@ -1,0 +1,82 @@
+\section{Available data and limitations}
+The geothermal data used in this study is based on the reports published by    \citet{bassiouni1980evaluation} and \citet{john1998gulf}. The sources contain the data collected in the Wells-of-Opportunity  and Design Wells program, repectively. 
+ 
+ 
+In the Wells-of-Opportunity program (1975), the wells were selected from the conventional dry holes based on necessary criteria for potentially productive geopressured geothermal aquifers. The program was designed to quickly provide information on the physical and petrophysical characteristics of a large number of reservoirs from a diverse geographic and geologic area whitough great expense. Such a program has the limitation of not locating the well in structurally favorable locations and pressure transient tests would not provide the information on the complete reservoir limits.  The program finally ranks the fifteen most promising geopressure geothermal prospects in the Louisiana out of sixty-three prospects. These fifteen wells exist in the dataset labeled as Source 1; all of which have reservoir volume and depth information. Only for the best five wells, permeability, porosity and temperature data are available \citep{bassiouni1980evaluation}. 
+
+The Design Well program was conducted between 1979-1990 to provide long term  comprehensive information from wells located at optimum reservoir points and designed to produce geopresured brines at high rates from geologically favorable areas (Figure \ref{Fig:map_perm}). The data contains temperature, depth, porosity, permeability, flow rate and other unused data (see \texttt{.csv} file) for all the seventeen wells reported for this program, three of which are located in the state of texas \citep{john1998gulf}.
+
+Having said all these limitations, we assume that the data is collected randomly and compare the two data sources using t test and ANOVA for any inconsistency. We further prepare a dynamic document, any new information can go into the accompanied \texttt{.csv} file and the analysis can be regenerated (Table \ref{Tab:DataSummary}). 
+
+
+<<map_perm,fig.height=6,results='hide',echo=FALSE,warning=FALSE,fig.cap="Location of only source 2 geothermal reservoirs. There are also three reservoirs from the Texas which are not shown here. Red dots shows permeability which varies between 7 and 500 md.",fig.lp="Fig:">>=
+# Reading the Data
+mydata <- read.csv("../Data/Data.csv", header=TRUE )
+#mapping the permeability data
+data<-mydata
+mydata <- mydata[mydata$long<0,]
+names(mydata)[names(mydata)=="Flow.Rate..BPD."]="Flow_Rate"
+states <- map_data("county","louisiana")
+
+p <- ggplot()
+p <- p + geom_polygon( data=states, aes(x=long, y=lat, group = group),colour="white")
+p <- p + geom_jitter(data=mydata,  aes(x=long, y=lat, size = mydata$Permeability..mD.,color="coral1"),label=rownames(mydata)) + theme(legend.position="none")
+print(p)
+@
+
+<<echo=FALSE,results='asis'>>=
+data$Temperature <- (data$Temp...degree.F.-32)/1.8
+data$Depth <- (data$Depth..ft.*0.3048)
+perm.data<-data[!is.na(data$Permeability..mD.),]
+permeability<-perm.data$Permeability..mD.
+poro.data <- data[!is.na(data$Porosity),]
+porosity  <- poro.data$Porosity
+temp.data <- data[!is.na(data$Temp...degree.F.),]
+temperature  <- (temp.data$Temp...degree.F.-32)*5/9
+thick.data <- data[!is.na(data$Average.thickness.ft),]
+thickness  <- thick.data$Average.thickness.ft*0.3048
+area.data <- data[!is.na(data$Area.SqMi),]
+area  <- area.data$Area.SqMi*(1609.34^2);
+length <- sqrt(area)
+depth.temp = data.frame(depth=(data$Depth..ft.*(0.3048)),
+                        temp=((data$Temp...degree.F.-32)*5/9))
+depth.temp = depth.temp[!is.na(depth.temp$depth),]
+depth.temp = depth.temp[!is.na(depth.temp$temp), ]
+@
+
+<<echo=FALSE,results='asis'>>=
+DataFrame=floor(data.frame(permeability.mD=as.matrix(summary(permeability)),porosity=as.matrix(summary(porosity)),temperature.C=as.matrix((summary(pretty(temperature)))),thickness.m=as.matrix(summary(thickness)),
+length.m=as.matrix(summary(length))))
+
+print(xtable(DataFrame,caption='Summary of the available data',label='Tab:DataSummary'),include.rownames=TRUE,caption.placement='bottom')
+@
+
+<<echo=FALSE,results='hide'>>=
+t.perm.test<-t.test(Permeability..mD.~Source, data=perm.data)
+t.poro.test<-t.test(Porosity~Source, data=poro.data)
+t.temp.test<-t.test(Temperature~Source, data=temp.data)
+aov.temp.depth.test<-aov(Temperature~Depth*Source, data=temp.data)
+@
+
+We do a t test to compare permeability, porosity and temperature that come from these two data sources. The result of the t test on these parameters are summarized in Table \ref{Tab:t_test}. 
+
+
+<<echo=FALSE,results='asis'>>=
+t.test.dataframe <-
+data.frame(c(t.perm.test$parameter,t.poro.test$parameter,t.temp.test$parameter), c(t.perm.test$statistic,t.poro.test$statistic,t.temp.test$statistic),
+    c(t.perm.test$p.value,t.poro.test$p.value,t.temp.test$p.value))
+
+colnames(t.test.dataframe)<-c('df','t','p value')
+rownames(t.test.dataframe)<-c('Permeability','Porosity','Temperature')
+
+print(xtable(t.test.dataframe,caption='Summary of the t test for permeability, porosity and temperature. Null hypothesis is rejected for permeability and porosity showing consistency in the reports.',label="Tab:t_test"),include.rownames=TRUE,caption.placement='bottom')
+@
+
+
+The true difference in the permeability and porosity mean is equal to zero which indicates that the data that come from the two sources are consistentassuming normality for their underlying theoretical distribution. The t test for the temperature does not reject the null hypothesis indicating that the temperature mean of the groups are different. Nevertheless, this result can be a type two error because the investigation depth of the reports are different. A  two way ANOVA is more appropriate for making final conclusion about temperature.  
+
+<<echo=FALSE,results='asis'>>=
+print(xtable(summary(aov.temp.depth.test),caption='Summary of the two way ANOVA on the temperature. The difference in the temperature is caused by the depth.',label="Tab:temp_anova"),include.rownames=TRUE,caption.placement='bottom')
+@
+
+The two way ANOVA test for temperature is summarized in Table \ref{Tab:temp_anova}. The effect of having different temperature mean is soley due to the depth and not the source confirming the consistency between the reports. Rejecting the null hypothesis for permeability, porosity and temperature also provides some preliminary basis to claim that the hot saline aquifers of the Louisiana have gone through similar depositional environment and diagenetic history.

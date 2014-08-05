@@ -1,0 +1,87 @@
+
+
+\documentclass[review,authoryear, 12pt]{elsarticle}
+
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{filecontents}
+\usepackage{comment}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath,bm}
+\usepackage[utf8]{inputenc}
+\usepackage{rotating}
+\usepackage{natbib}
+\usepackage{gensymb}
+%\journal{Geothermics Journal}
+
+<<results='hide',echo=FALSE,warning=FALSE>>=
+# cleaning variables and closing plots
+rm(list = ls())
+if (!is.null(dev.list())) dev.off()
+
+packages <- c("RColorBrewer","car", "fitdistrplus", "MASS", "map", "ggplot2", "xtable", "boot","triangle")
+
+if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
+ install.packages(setdiff(packages, rownames(installed.packages())),,repos =     c('http://rforge.net', 'http://cran.rstudio.org'), type = 'source')  
+}
+
+suppressPackageStartupMessages(require(RColorBrewer))
+suppressPackageStartupMessages(require(car))
+suppressPackageStartupMessages(require(fitdistrplus))
+suppressPackageStartupMessages(require(MASS))
+suppressPackageStartupMessages(require(Hmisc))
+suppressPackageStartupMessages(require(map))
+suppressPackageStartupMessages(require(ggplot2))
+suppressPackageStartupMessages(require(xtable))
+suppressPackageStartupMessages(require(boot))
+suppressPackageStartupMessages(require(triangle))
+@
+
+
+\begin{document}
+%\nocite{*}
+\begin{frontmatter}
+
+%\author{Esmail Ansari}
+%\ead{eansar2@lsu.edu}
+%\author{Richard Hughes}
+
+\title{Statistical Analysis of the Gulf Coast Geothermal Reservoirs}
+%\address{Louisiana State University}
+
+\begin{abstract}
+
+Important parameters of the Gulf Coast geothermal reservoirs are investigated. They are: permeability, porosity, average reservoir temperature, thickness, length (i.e. area\textsuperscript{0.5}), temperature gradient of the earth, reservoir dip angle, injection temperature and well flow rate. The data, used to create the range and distribution of the parameters, come from previous reports on the subject. These data were transformed using appropriate methods and a distribution is fit to the transformed data. An approach for calculating the reservoir dip angle is presented which requires bootstrapping the temperature gradient in the area. This paper provides ground for experimental design and scaling analysis studies. 
+
+\end{abstract}
+
+
+\end{frontmatter}
+
+
+
+\Sexpr{knit_child('./sections/Data_Information.Rnw')}
+
+\Sexpr{knit_child('./sections/Permeability.Rnw')}
+
+\Sexpr{knit_child('./sections/Porosity_etc.Rnw')}
+
+\Sexpr{knit_child('./sections/Geothermal_gradient.Rnw')}
+
+\Sexpr{knit_child('./sections/Dip_angle.Rnw')}
+
+\Sexpr{knit_child('./sections/Injection_temperature.Rnw')}
+
+\Sexpr{knit_child('./sections/Flow_rate.Rnw')}
+
+
+
+%\section*{References}
+\bibliographystyle{elsarticle-harv}
+\bibliography{./sections/Bibliography}
+
+
+
+\end{document}

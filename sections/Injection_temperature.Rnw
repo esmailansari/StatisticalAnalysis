@@ -1,0 +1,20 @@
+%-----------------------------------------------
+%                Injection temperature
+%-----------------------------------------------
+\section{Injection temperature}
+Injection temperature reduces the temperature of the reservoir. In binary power plants, the discharge temperature varies in a large range 25-90 \degree C \citep{tester2006future}. Average annual surface temperature for the Louisiana is ca. 20 \degree C (www.ncdc.noaa.gov); so it is more likely that the injection temperature further reduces to this temperature. Though the range of injection temperature is known, no 'a priori' knowledge of the distribution form is available. When there is a most likely value within a range but no 'a priori' knowledge, a triangular distribution is appropriate (Figure \ref{Fig:injectionTemp}, \citet{jensen2000statistics}). The triangle is defined using the range 20-90 \degree C and it's most likely value as 20 \degree C.
+
+<<injectionTemp,echo=FALSE,out.width='7cm', out.height='7cm',fig.align='center',fig.cap='injection temperature for binary power plants',fig.lp="Fig:">>=
+inj.temp <- rtriangle(1000, a=20, b=90, c=20)
+histplot(inj.temp,'injection temperature (C)','deeppink2',Alpha=8,N.breaks=5)
+@
+
+For downhole heat exchangers, the injection temperature is a function of  its production section's length, its middle length, its injection section's length, input temperature and other factors such as working fluid, casing and tubing diameter, etc (Fig. \ref{Fig:DHEscheme}). A DHE with working fluid injected through the tubing and brine passing the casing is known as WFT (working fluid through tubing) which has higher efficiency compared with other designs. DHE's total length varies between ca. 150 and 300 m which makes the injection temperature varying from ca. 120 down to 40 C respectively for an input temperature of ca. 150 C, and flow rate of ca. 400 m\textsuperscript{3}.day\textsuperscript{-1}, assuming engineering assumptions for other parameters \citep{feng2012numerical}. A uniform distribution can be used for DHE's injection temperature because no 'a priori' knowledge is available. 
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\linewidth]{./figure/DHE}
+\caption{DHE scheme that is being used for dimensional analysis.} 
+\label{Fig:DHEscheme}
+\end{figure}
+ 

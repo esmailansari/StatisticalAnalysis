@@ -1,0 +1,101 @@
+%-----------------------------------------------
+%               Dip Angle
+%-----------------------------------------------
+\section{Reservoir dip angle}
+According to \citet{Gray2010}, the range of the dip angle for Camerina A reservoir is from 1.2\degree to 28\degree. Calculating the reservoir dip angle by investigating the gradient of the structural maps is challenging. Further, we are interested in the avereage reservoir dip angle and not the local dip angle. Exploratory data analysis is used to calculate this average dip angle \citep{diggle2007model}. It is done by recognizing that the temperature of the Louisiana's geopressured-geothermal reservoirs would remain lower than $T_{max}$ and by using reservoir's temperature gradient, average temperature and its length (Figure \ref{Fig:Schematic}). Since no 'a priori' exists about where the average reservoir temperature or bottomhole temperature attributes to, we assume that the data are sampled uniformly along the reservoir assigning teh average reessvoir temperature to (L/2,H/2). Available data can be used to calculate this $T_{max}$ using Eq. \ref{Fig:Schematic}.
+
+
+\begin{figure}
+\centering
+\includegraphics[width=0.75\linewidth]{./figure/schematic}
+\caption{Regular design.} 
+\label{Fig:Schematic}
+\end{figure}
+
+
+%\begin{equation}
+%\tau \frac{L}{2} \sin \alpha + T_{avg} = T_{max}
+%\end{equation}
+
+\begin{equation}
+\label{Eq:DipModel}
+\alpha = \sin^{-1} \left(\frac{2(T_{max}-T_{avg})}{\tau L}\right)
+\end{equation}
+
+in which:
+
+\begin{eqnarray}
+\tau \sim \mathcal{N}(\mu_\tau,\sigma^2_\tau) \\
+T_{avg} \sim \mathcal{N}(\mu_T,\sigma^2_T) \\
+L \sim \mathcal{N}(\mu_L,\sigma^2_L) \\
+T_{max}=?
+\end{eqnarray}
+
+Knowing that the dip angle of Eq. \ref{Eq:DipModel} can not be more than 90 degrees, we can find $T_{max}$ with the probability of $0.99*0.99=0.9801$ by constraining the fraction in Eq. \ref{Eq:DipModel} to its maximum (i.e. one) which means:
+
+\begin{equation}
+\frac{2(T_{max}-T_{avg})}{\tau L} \leq 1 
+\end{equation}
+\begin{equation}
+T_{max} \leq T_{avg}+\frac{\tau L}{2} 
+\end{equation}
+\begin{equation}
+T_{max} = ({\mu_T-3\sigma_T})+\frac{(\mu_{\tau}-3\sigma_{\tau})(\mu_{L}-3\sigma_L)}{2}
+\label{Eq:TmaxSolution}
+\end{equation}
+
+<<echo=FALSE>>=
+trunc.draws <-function(x, xlim) {
+  x[x<xlim[1]]    <- xlim[1]
+  x[x>xlim[2]]    <- xlim[2]
+  return(x)
+}
+T.mean  <- fit.temp$estimate[[1]]
+T.sd    <- fit.temp$estimate[[2]]
+T.lim   <- c(T.mean-3*T.sd,T.mean+3*T.sd)
+
+Length.mean  <- fit.length$estimate[[1]]
+Length.sd    <- fit.length$estimate[[2]]
+Length.lim   <- c(Length.mean-3*Length.sd,Length.mean+3*Length.sd) 
+
+fit.tau <- fitdist(as.vector(boot.results$t),"norm","mme")
+Tau.mean   <- fit.tau$estimate[[1]]
+Tau.sd     <- fit.tau$estimate[[2]]
+Tau.lim    <- c(Tau.mean-3*Tau.sd,Tau.mean+3*Tau.sd) 
+
+T_max=floor(T.lim[[1]]+(Tau.lim[[1]]*Length.lim[[1]])/2)
+@
+
+Once $T_{max}$  is found to be ca. \Sexpr{T_max} $^\circ C$, we can solve Eq. \ref{Eq:DipModel} using a sampling method \citep{kroese2011handbook}. We used Hammersley Sequence Sampling to sample average temperature, geothermal gradient and reservoir's length for finding the dip angle of the layers (Figure \ref{Fig:dip_angle}). The median of the dip angle is ca. 15\degree and . If we exclude the outliers, it is unlikely to have a reservoir with the dip angle of more than ca. 60\degree. The lower quartile is ca. 2.5\degree and the upper quartile is ca. 25\degree.
+
+<<echo=FALSE,out.height='10cm',out.width='10cm',fig.align='center'>>=
+source('../functions/Hammersley.R')
+Factors <- list('T.avg','Length','Tau')
+N=5000
+T.avg.dist = trunc.draws(rnorm(N,T.mean,T.sd),T.lim)
+Length.dist = trunc.draws(rnorm(N,Length.mean,Length.sd),Length.lim)
+Tau.dist = trunc.draws(rnorm(N,Tau.mean,Tau.sd),Tau.lim)
+Fact.dist <- data.frame(T.avg=T.avg.dist,Length=Length.dist,Tau=Tau.dist)
+HSS.select <- as.data.frame(matrix(rep(NA,N*length(Factors)),
+                                   c(N,length(Factors))))
+colnames(HSS.select) <- Factors
+colnames(Fact.dist)  <-Factors
+
+QuasiMC <- hammersley(prime(50)[1:length(Factors)],N)
+
+  
+for (i in 1:length(Factors)){
+  HSS.select[,i] <- QuasiMC[,i]*(max(Fact.dist[Factors[[i]]])-
+                                   min(Fact.dist[Factors[[i]]]))+ 
+                                  min(Fact.dist[Factors[[i]]])
+}
+
+Dip.dist = rep(0,N)
+Dip.dist <- asin(2*(T_max-HSS.select[,1])/(HSS.select[,2]*HSS.select[,3]))
+Dip.dist <- Dip.dist/pi*180
+@
+
+<<dip_angle,echo=FALSE,out.height='10cm',out.width='10cm',fig.align='center',fig.lp='Fig:',fig.cap="Distribution of the Gulf Coast geothermal reservoir's dip angle. The median of the dip angle is ca. 15\\degree and . If we exclude the outliers, it is unlikely to have a reservoir with the dip angle of more than ca. 60\\degree. The lower quartile is ca. 2.5\\degree and the upper quartile is ca. 25\\degree.">>=
+source('../functions/dip.dist.plot.R')
+dip.dist.plot(Dip.dist)
+@

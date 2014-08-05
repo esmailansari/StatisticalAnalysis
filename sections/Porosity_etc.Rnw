@@ -1,0 +1,98 @@
+\section{Porosity, thickness, length and temperature}
+The main underlying assumptions is that the samples represent all the geothermal reservoirs in the Louisiana and sum of the geological processes that has created them, has left them having a normal distribution. Porosity, thickness, length and temperature data (Figure \ref{Fig:histplots}) were transformed using a normal score transform (Figure \ref{Fig:normhistplots}) and a Gaussian distribution is then fitted on them (Figure \ref{Fig:poro_norm_fit}). Distribution fitting results are summarized in Table \ref{Tab:poro_etc_fit}.
+
+%-------------------------------------------------
+%                    Porosity
+%-------------------------------------------------
+
+<<echo=FALSE,fig.cap="normalized porosity using normal score transform",fig.height=5>>=
+poro.data$color[poro.data$Source=="Source 1"]<-'red'
+poro.data$color[poro.data$Source=="Source 2"]<-'blue'
+par(opar)
+poro.vec <- sort(porosity)
+P.vec <- (1:length(poro.vec))/(length(poro.vec) + 1)
+poro.ns <- qnorm(P.vec); 
+poro.ns <- poro.ns*sd(poro.vec)+mean(poro.vec)
+par(mfrow = c(1, 2)) ; 
+@
+
+%-------------------------------------------------------
+%                    Average reservoir temperature
+%--------------------------------------------------------
+
+
+<<echo=FALSE>>=
+temp.vec <- sort(temperature)
+P.vec <- (1:length(temp.vec))/(length(temp.vec) + 1)
+temp.ns <- qnorm(P.vec); 
+temp.ns <- temp.ns*sd(temp.vec)+mean(temp.vec)
+fit.temp <- fitdist(temp.ns,"norm","mme")
+@
+
+
+
+%-----------------------------------------------
+%                       Thicknesss 
+%-----------------------------------------------
+
+
+
+<<echo=FALSE>>=
+thick.vec <- sort(thickness)
+P.vec <- (1:length(thick.vec))/(length(thick.vec) + 1)
+thick.ns <- qnorm(P.vec); 
+thick.ns <- thick.ns*sd(thick.vec)+mean(thick.vec)
+fit.thick <- fitdist(thick.ns,"norm","mme")
+@
+
+%-----------------------------------------------
+%                          Length
+%-----------------------------------------------
+
+<<echo=FALSE>>=
+length.vec <- sort(length)
+P.vec <- (1:length(length.vec))/(length(length.vec) + 1)
+length.ns <- qnorm(P.vec); 
+length.ns <- length.ns*sd(length.vec)+mean(length.vec)
+fit.length <- fitdist(length.ns,"norm","mme")
+@
+
+<<histplots, echo=FALSE,out.width='7cm', out.height='7cm', fig.show='hold',fig.cap="Parameter distributions before transformation. Data values are shown below the historgram as tiny lines and the box plot shows the quantiles of each parameter. The most likely value for the reservoir thickness and length lies between 100-150 m and 11000-12000 m respectively. The most likely value for the porosity and temperature are between 15-20 and 120-140 \\degree C, respectively.",fig.lp="Fig:">>=
+histplot <- function(Parameter,Para.name,Color,Alpha=8,N.breaks=5){
+par(fig=c(0,0.8,0,0.8))
+hist(Parameter,freq=FALSE,breaks=N.breaks,xlab=Para.name,col=adjustcolor(Color,alpha=Alpha/8),main=NULL)
+rug(jitter(Parameter), col=Color)
+par(fig=c(0,0.8,0.55,1),new=TRUE)
+boxplot(Parameter,horizontal=TRUE,axes=FALSE,col=adjustcolor(Color,alpha=(Alpha-5)/8))
+}
+
+histplot(porosity,'porosity','tan2')
+histplot(thickness,'thickness (m)','khaki4')
+histplot(length,'length (m)','plum4')
+histplot(temperature,'temperature (C)','red4')
+@
+
+
+<<normhistplots, echo=FALSE,out.width='7cm', out.height='7cm', fig.show='hold',fig.cap="Normalized parameter distributions using normal score transform",fig.lp="Fig:">>=
+histplot(poro.ns,'porosity','tan2',8,8)
+histplot(thick.ns,'thickness (m)','khaki4',8)
+histplot(length.ns,'length (m)','plum4',8)
+histplot(temp.ns,'temperature (C)','red4',8)
+@
+
+<<poro_norm_fit,echo=FALSE,fig.cap='Gaussian distribution fitted to the normalized porosity. As expected, both Q-Q and the CDF plot indicate good fit.',fig.lp="Fig:">>=
+fit.poro <- fitdist(poro.ns,"norm","mme")
+plot(fit.poro,col=adjustcolor('tan2',alpha=5/8))
+poro.stat<-list(poro.sd=as.data.frame(fit.poro$estimate)['sd',],poro.mean=as.data.frame(fit.poro$estimate)['mean',])
+@
+
+
+<<poro_etc_fit, echo=FALSE,results='asis'>>=
+
+DataFrame = data.frame(porosity=as.matrix(summary(fit.poro)$estimate),tickness.m=as.matrix(summary(fit.thick)$estimate),length.m=as.matrix(summary(fit.length)$estimate),temperature.C=as.matrix(summary(fit.temp)$estimate))
+
+print(xtable(DataFrame,caption='{Summary of the gaussian fit to the porosity, thickness, length and temperature}',label="Tab:poro_etc_fit"),include.rownames=TRUE,caption.placement='bottom')
+@
+
+
+\pagebreak

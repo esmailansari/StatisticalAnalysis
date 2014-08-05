@@ -1,0 +1,14 @@
+%-----------------------------------------------
+%                   Flow Rate
+%----------------------------------------------
+\section{Flow Rate}
+Flow rate is also a very important parameter and rate of power generation directly depends on it. It seems the reported flow rate for the well tests are restricted by TPR curves because the reservoir models can sustain higher rates. In fact Gulf Coast geopressured aquifers came to attention for their geohydraulic potential rather than their geothermal energy \citep{Hawkins1977}. \citet{McMullan1984} realizing that maximizing flow-rate maximizes NPV in geopressured geothermal reservoirs, showed that the effect of tubing size and skin overwhelms other effects such as well location with respect to aquifers. Their study indicates that these reservoirs can sustain higher than 6350 m\textsuperscript{3}.day\textsuperscript{-1} (40000 bbl.day\textsuperscript{-1}) and up to 17500 m\textsuperscript{3}.day\textsuperscript{-1} (110000 bbl.day\textsuperscript{-1}) for maximum of 5 years. The well test data shows a flow rate of ca. 250 to 4250 m\textsuperscript{3}.day\textsuperscript{-1} (Figure \ref{Fig:flowrate}). A unifrom distribution can be used for flow rate because there is no priori knowledge of the distribution and based on the current data, we can certainly say that the variable cannot take values outside well test recorded range. 
+
+<<flowrate,echo=FALSE,out.width='7cm', out.height='7cm',fig.align='center',fig.cap='Well test data for flow rate',fig.lp="Fig:">>=
+flow.data<-data[!is.na(data$Flow.Rate..BPD.),]
+flowrate<-flow.data$Flow.Rate..BPD.*0.119240471
+histplot(flowrate,'flow rate (m3/day)','blue',Alpha=8,N.breaks=5)
+@
+
+Previous DHE designs have single point fluid inlet and single point or a length fluid for outletting the fluid and are insulated from the reservoir \citep{feng2012numerical}. However the new designs are evolving into having a length for production and a length for injection. Also, the DHE's middle (main) length is not isolated from the reservoir (Ildar, personal communication) and its flow rate is lower than conventional heat exchangers (ca. 450 m\textsuperscript{3}.day\textsuperscript{-1} or 5.25 kg.s\textsuperscript{-1}) \citep{feng2012numerical} which seemingly cannot be increased due to DHE's limitations such as sand production, pump capacity, etc. (Ildar, personal communication). 
+

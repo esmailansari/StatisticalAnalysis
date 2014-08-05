@@ -1,0 +1,66 @@
+\begin{thebibliography}{12}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Bassiouni(1980)}]{bassiouni1980evaluation}
+Bassiouni, Z., 1980. Evaluation of potential geopressure geothermal test sites
+  in southern louisiana. Tech. rep., Louisiana State Univ., Baton Rouge (USA).
+  Dept. of Petroleum Engineering.
+
+\bibitem[{Diggle and Ribeiro(2007)}]{diggle2007model}
+Diggle, P., Ribeiro, P.~J., 2007. Model-based geostatistics. Springer.
+
+\bibitem[{Feng(2012)}]{feng2012numerical}
+Feng, Y., 2012. Numerical study of downhole heat exchanger concept in
+  geothermal energy extraction from saturated and fractured reservoirs. Ph.D.
+  thesis, University of Louisiana.
+
+\bibitem[{Fridleifsson et~al.(2008)Fridleifsson, Bertani, Huenges, Lund,
+  Ragnarsson, Rybach, et~al.}]{fridleifsson2008possible}
+Fridleifsson, I.~B., Bertani, R., Huenges, E., Lund, J.~W., Ragnarsson, A.,
+  Rybach, L., et~al., 2008. The possible role and contribution of geothermal
+  energy to the mitigation of climate change. In: IPCC scoping meeting on
+  renewable energy sources, proceedings, Luebeck, Germany. Vol.~20. Citeseer,
+  pp. 59--80.
+
+\bibitem[{Gray and Nunn(2010)}]{Gray2010}
+Gray, T., Nunn, J., 2010. Geothermal resource assessment of the gueydan salt
+  dome and the adjacent southeast gueydan field. Vermilion Parish, Louisiana:
+  Gulf Coast Association of Geological Societies Transactions 60, 307--323.
+
+\bibitem[{Hawkins(1977)}]{Hawkins1977}
+Hawkins, M. F.~J., 1977. Investigations on the geo-pressure energy resource of
+  southern louisiana. Tech. rep., Final report to ERDA on contract No.
+  AT-(40-1)-4889, Louisiana State University.
+
+\bibitem[{Jensen(2000)}]{jensen2000statistics}
+Jensen, J.~L., 2000. Statistics for petroleum engineers and geoscientists.
+  Vol.~2. Gulf Professional Publishing.
+
+\bibitem[{John et~al.(1998)John, Maciasz, and Harder}]{john1998gulf}
+John, C., Maciasz, G., Harder, B., 1998. Gulf coast geopressured-geothermal
+  program summary report compilation. volume 2-a: Resource description, program
+  history, wells tested, university and company based research, site
+  restoration. Tech. rep., Louisiana State Univ., Basin Research Inst., Baton
+  Rouge, LA (United States).
+
+\bibitem[{Kroese et~al.(2011)Kroese, Taimre, and Botev}]{kroese2011handbook}
+Kroese, D.~P., Taimre, T., Botev, Z.~I., 2011. Handbook of Monte Carlo Methods.
+  Vol. 706. John Wiley \& Sons.
+
+\bibitem[{McMullan and Bassiouni(1984)}]{McMullan1984}
+McMullan, J.~H., Bassiouni, Z., 1984. Prediction of maximum flow rates from
+  geopressured aquifers. Journal of petroleum technology 36~(3), 503--509.
+
+\bibitem[{Tester et~al.(2006)Tester, Anderson, Batchelor, Blackwell, DiPippo,
+  Drake, Garnish, Livesay, Moore, Nichols, et~al.}]{tester2006future}
+Tester, J.~W., Anderson, B.~J., Batchelor, A., Blackwell, D., DiPippo, R.,
+  Drake, E., Garnish, J., Livesay, B., Moore, M., Nichols, K., et~al., 2006.
+  The future of geothermal energy. Massachusetts Institute of Technology 358.
+
+\bibitem[{White(2013)}]{white_note}
+White, C.~D., 2013. Statistical Reservoir Modeling, Course Notes.
+
+\end{thebibliography}
