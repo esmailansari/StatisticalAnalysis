@@ -1,17 +1,18 @@
 \section{Permeability}
-The geological processes that create permeability in reservoir rocks appear to leave permeability distributed around the geometric mean (log normal distribution). The permeability is available for most of the wells (Figure \ref{Fig:PermDotChart}). A log-normal distribution is fit to the permeability using \texttt{fitdistrplus} package (Figure \ref{Fig:perm_fit}, Table \ref{Tab:Permfit}).
+The geological processes that create permeability in reservoir rocks appear to leave permeability distributed around the geometric mean (log normal distribution). The permeability is available for most of the wells (Figure \ref{Fig:PermDotChart}). A normal distribution is fit to the logarithm of permeability using \texttt{fitdistrplus} package (Figure \ref{Fig:perm_fit}, Table \ref{Tab:Permfit}).
 
 
-<<PermDotChart,fig.height=6,echo=FALSE,warning=FALSE,fig.cap="Wells with reported permeability. Some of the wells may have missing data which is clear from the \\texttt{.csv} file and we don't plot this graph for each parameter to make the report succinct.",fig.lp='Fig:'>>=
+<<PermDotChart,fig.height=6,echo=FALSE,warning=FALSE,fig.cap="Log of the permeability sorted by ascending porosity within groups. Because the data come from different formations and fields, no correlation between porosity and permeability is observed.  . Some of the wells may have missing data which is clear from the \\texttt{.csv} file.",fig.lp='Fig:'>>=
 perm.data$color[perm.data$Source=="Source 2 (well name)"]<-'red'
 perm.data$color[perm.data$Source=="Source 1 (prospect)"]<-'blue'
+perm.data <- perm.data[order(perm.data$Porosity),]
 
-dotchart(permeability,labels=perm.data$label,groups=perm.data$Source,cex=0.8, color=perm.data$color,xlab="Permeability (md)")
+dotchart(log(perm.data$Permeability..mD.),labels=perm.data$label,groups=perm.data$Source,cex=0.8, color=perm.data$color,xlab="Log(permeability)")
 @
 
 
-<<perm_fit,echo=FALSE,fig.cap="Fitting a log-normal distribution to the box-cox transformed permeability.",fig.lp="Fig:">>=
-fit.perm <- fitdist(permeability,"lnorm","mme")
+<<perm_fit,echo=FALSE,fig.cap="Fitting a normal distribution to the logarithm of permeability.",fig.lp="Fig:">>=
+fit.perm <- fitdist(log(permeability),"norm","mme")
 plot(fit.perm,col='paleturquoise4')
 @
 
@@ -19,7 +20,7 @@ plot(fit.perm,col='paleturquoise4')
 <<Permfit, echo=FALSE,results='asis'>>=
 DataFrame = data.frame(permeability.mD=as.matrix(summary(fit.perm)$estimate))
 
-print(xtable(DataFrame,caption='{Summary of the log-normal fit to the permeability}',label="Tab:Permfit"),include.rownames=TRUE,caption.placement='bottom')
+print(xtable(DataFrame,caption='{Summary of the normal fit to the logarithm of permeability}',label="Tab:Permfit"),include.rownames=TRUE,caption.placement='bottom')
 @
 
 \pagebreak

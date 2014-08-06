@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.7.20)  5 AUG 2014 17:59
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (MiKTeX 2.9 64-bit) (preloaded format=pdflatex 2014.7.20)  6 AUG 2014 14:17
 entering extended mode
 **main.tex
 (C:\Users\Research\Documents\Git_Github\StatisticalAnalysis\main.tex
@@ -476,30 +476,23 @@ Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
 ("C:\Program Files\MiKTeX 2.9\tex\latex\was\gensymb.sty"
 Package: gensymb 2003/07/02 v1.0 (WaS)
 )
-Package color Info: Redefining color shadecolor on input line 69.
-
-Overfull \hbox (76.19571pt too wide) in paragraph at lines 72--72
-[]\OT1/cmtt/m/it/12 ## Installing package into 'C:/Users/Research/Documents/R/w
-in-library/3.1' 
- []
-
 ("C:\Program Files\MiKTeX 2.9\tex\latex\upquote\upquote.sty"
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 )
 (C:\Users\Research\Documents\Git_Github\StatisticalAnalysis\main.aux)
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
+LaTeX Font Info:    ... okay on input line 71.
 
 ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -518,353 +511,301 @@ LaTeX Font Info:    ... okay on input line 76.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: rotating package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \celsius on input line 76.
-Package gensymb Info: Faking symbols for \degree and \celsius on input line 76.
+LaTeX Info: Redefining \celsius on input line 71.
+Package gensymb Info: Faking symbols for \degree and \celsius on input line 71.
 
 
 
 Package gensymb Warning: Not defining \perthousand.
 
-LaTeX Info: Redefining \ohm on input line 76.
-Package gensymb Info: Using \Omega for \ohm on input line 76.
+LaTeX Info: Redefining \ohm on input line 71.
+Package gensymb Info: Using \Omega for \ohm on input line 71.
 
 Package gensymb Warning: Not defining \micro.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 89.
+LaTeX Font Info:    Try loading font information for U+msa on input line 84.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 89.
+LaTeX Font Info:    Try loading font information for U+msb on input line 84.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}] [2
 
-]
-Package color Info: Redefining color shadecolor on input line 111.
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Package color Info: Redefining color shadecolor on input line 106.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 111.
+               Default added (so using `tbp') on input line 106.
 
-<figure/map_perm.pdf, id=14, 505.89pt x 433.62pt>
+<figure/map_perm.pdf, id=10, 505.89pt x 433.62pt>
 File: figure/map_perm.pdf Graphic file (type pdf)
  <use figure/map_perm.pdf>
-Package pdftex.def Info: figure/map_perm.pdf used on input line 113.
+Package pdftex.def Info: figure/map_perm.pdf used on input line 108.
 (pdftex.def)             Requested size: 390.0pt x 334.29204pt.
 
-Overfull \hbox (27.99928pt too wide) in paragraph at lines 125--137
+Overfull \hbox (27.99928pt too wide) in paragraph at lines 120--132
  [][] 
  []
 
-[3] [4 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/map_p
-erm.pdf>] [5]
-Package color Info: Redefining color shadecolor on input line 195.
+[2] [3 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/map_p
+erm.pdf>] [4]
+Package color Info: Redefining color shadecolor on input line 190.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 195.
+               Default added (so using `tbp') on input line 190.
 
-<figure/PermDotChart.pdf, id=31, 505.89pt x 433.62pt>
+<figure/PermDotChart.pdf, id=27, 505.89pt x 433.62pt>
 File: figure/PermDotChart.pdf Graphic file (type pdf)
 
 <use figure/PermDotChart.pdf>
-Package pdftex.def Info: figure/PermDotChart.pdf used on input line 197.
+Package pdftex.def Info: figure/PermDotChart.pdf used on input line 192.
 (pdftex.def)             Requested size: 390.0pt x 334.29204pt.
-Package color Info: Redefining color shadecolor on input line 205.
+Package color Info: Redefining color shadecolor on input line 200.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 205.
+               Default added (so using `tbp') on input line 200.
 
-<figure/perm_fit.pdf, id=32, 505.89pt x 505.89pt>
+<figure/perm_fit.pdf, id=28, 505.89pt x 505.89pt>
 File: figure/perm_fit.pdf Graphic file (type pdf)
  <use figure/perm_fit.pdf>
-Package pdftex.def Info: figure/perm_fit.pdf used on input line 207.
+Package pdftex.def Info: figure/perm_fit.pdf used on input line 202.
 (pdftex.def)             Requested size: 390.0pt x 390.00737pt.
 
-[6] [7 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/PermD
-otChart.pdf>] [8 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/fi
+[5] [6 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/PermD
+otChart.pdf>] [7 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/fi
 gure/perm_fit.pdf>]
-Package color Info: Redefining color shadecolor on input line 242.
-LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 245.
-Package color Info: Redefining color shadecolor on input line 272.
 
+LaTeX Warning: Reference `Fig:poro_BoxCox_fit' on page 8 undefined on input lin
+e 230.
+
+Package color Info: Redefining color shadecolor on input line 262.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 272.
+               Default added (so using `tbp') on input line 262.
 
-<figure/histplots1.pdf, id=56, 505.89pt x 505.89pt>
+<figure/histplots1.pdf, id=52, 505.89pt x 505.89pt>
 File: figure/histplots1.pdf Graphic file (type pdf)
 
 <use figure/histplots1.pdf>
-Package pdftex.def Info: figure/histplots1.pdf used on input line 274.
+Package pdftex.def Info: figure/histplots1.pdf used on input line 264.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-<figure/histplots2.pdf, id=57, 505.89pt x 505.89pt>
+<figure/histplots2.pdf, id=53, 505.89pt x 505.89pt>
 File: figure/histplots2.pdf Graphic file (type pdf)
 
 <use figure/histplots2.pdf>
-Package pdftex.def Info: figure/histplots2.pdf used on input line 275.
+Package pdftex.def Info: figure/histplots2.pdf used on input line 265.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-<figure/histplots3.pdf, id=58, 505.89pt x 505.89pt>
+<figure/histplots3.pdf, id=54, 505.89pt x 505.89pt>
 File: figure/histplots3.pdf Graphic file (type pdf)
 
 <use figure/histplots3.pdf>
-Package pdftex.def Info: figure/histplots3.pdf used on input line 276.
+Package pdftex.def Info: figure/histplots3.pdf used on input line 266.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-<figure/histplots4.pdf, id=59, 505.89pt x 505.89pt>
+<figure/histplots4.pdf, id=55, 505.89pt x 505.89pt>
 File: figure/histplots4.pdf Graphic file (type pdf)
 
 <use figure/histplots4.pdf>
-Package pdftex.def Info: figure/histplots4.pdf used on input line 277.
+Package pdftex.def Info: figure/histplots4.pdf used on input line 267.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-Overfull \hbox (10.95523pt too wide) in paragraph at lines 274--277
+Overfull \hbox (10.95523pt too wide) in paragraph at lines 264--267
 [][] []
  []
 
 
-Overfull \hbox (10.95523pt too wide) in paragraph at lines 274--277
+Overfull \hbox (10.95523pt too wide) in paragraph at lines 264--267
 [] [] 
  []
 
-Package color Info: Redefining color shadecolor on input line 285.
+Package color Info: Redefining color shadecolor on input line 275.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 285.
+               Default added (so using `tbp') on input line 275.
 
-<figure/normhistplots1.pdf, id=60, 505.89pt x 505.89pt>
-File: figure/normhistplots1.pdf Graphic file (type pdf)
+<figure/BoxCoxhistplots1.pdf, id=56, 505.89pt x 505.89pt>
+File: figure/BoxCoxhistplots1.pdf Graphic file (type pdf)
 
-<use figure/normhistplots1.pdf>
-Package pdftex.def Info: figure/normhistplots1.pdf used on input line 287.
+<use figure/BoxCoxhistplots1.pdf>
+Package pdftex.def Info: figure/BoxCoxhistplots1.pdf used on input line 277.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-<figure/normhistplots2.pdf, id=61, 505.89pt x 505.89pt>
-File: figure/normhistplots2.pdf Graphic file (type pdf)
+<figure/BoxCoxhistplots2.pdf, id=57, 505.89pt x 505.89pt>
+File: figure/BoxCoxhistplots2.pdf Graphic file (type pdf)
 
-<use figure/normhistplots2.pdf>
-Package pdftex.def Info: figure/normhistplots2.pdf used on input line 288.
+<use figure/BoxCoxhistplots2.pdf>
+Package pdftex.def Info: figure/BoxCoxhistplots2.pdf used on input line 278.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-<figure/normhistplots3.pdf, id=62, 505.89pt x 505.89pt>
-File: figure/normhistplots3.pdf Graphic file (type pdf)
+<figure/BoxCoxhistplots3.pdf, id=58, 505.89pt x 505.89pt>
+File: figure/BoxCoxhistplots3.pdf Graphic file (type pdf)
 
-<use figure/normhistplots3.pdf>
-Package pdftex.def Info: figure/normhistplots3.pdf used on input line 289.
+<use figure/BoxCoxhistplots3.pdf>
+Package pdftex.def Info: figure/BoxCoxhistplots3.pdf used on input line 279.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-<figure/normhistplots4.pdf, id=63, 505.89pt x 505.89pt>
-File: figure/normhistplots4.pdf Graphic file (type pdf)
+<figure/BoxCoxhistplots4.pdf, id=59, 505.89pt x 505.89pt>
+File: figure/BoxCoxhistplots4.pdf Graphic file (type pdf)
 
-<use figure/normhistplots4.pdf>
-Package pdftex.def Info: figure/normhistplots4.pdf used on input line 290.
+<use figure/BoxCoxhistplots4.pdf>
+Package pdftex.def Info: figure/BoxCoxhistplots4.pdf used on input line 280.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-Overfull \hbox (10.95523pt too wide) in paragraph at lines 287--290
+Overfull \hbox (10.95523pt too wide) in paragraph at lines 277--280
 [][] []
  []
 
 
-Overfull \hbox (10.95523pt too wide) in paragraph at lines 287--290
+Overfull \hbox (10.95523pt too wide) in paragraph at lines 277--280
 [] [] 
  []
 
-Package color Info: Redefining color shadecolor on input line 297.
+Package color Info: Redefining color shadecolor on input line 287.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 297.
+               Default added (so using `tbp') on input line 287.
 
-<figure/poro_norm_fit.pdf, id=64, 505.89pt x 505.89pt>
+<figure/poro_norm_fit.pdf, id=60, 505.89pt x 505.89pt>
 File: figure/poro_norm_fit.pdf Graphic file (type pdf)
 
 <use figure/poro_norm_fit.pdf>
-Package pdftex.def Info: figure/poro_norm_fit.pdf used on input line 299.
+Package pdftex.def Info: figure/poro_norm_fit.pdf used on input line 289.
 (pdftex.def)             Requested size: 390.0pt x 390.00737pt.
- [9] [10 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/his
-tplots1.pdf> <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure
-/histplots2.pdf> <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/fi
-gure/histplots3.pdf> <C:/Users/Research/Documents/Git_Github/StatisticalAnalysi
-s/figure/histplots4.pdf>] [11 <C:/Users/Research/Documents/Git_Github/Statistic
-alAnalysis/figure/normhistplots1.pdf> <C:/Users/Research/Documents/Git_Github/S
-tatisticalAnalysis/figure/normhistplots2.pdf> <C:/Users/Research/Documents/Git_
-Github/StatisticalAnalysis/figure/normhistplots3.pdf> <C:/Users/Research/Docume
-nts/Git_Github/StatisticalAnalysis/figure/normhistplots4.pdf>] [12 <C:/Users/Re
-search/Documents/Git_Github/StatisticalAnalysis/figure/poro_norm_fit.pdf>]
+ [8] [9 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/hist
+plots1.pdf> <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/
+histplots2.pdf> <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/fig
+ure/histplots3.pdf> <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis
+/figure/histplots4.pdf>] [10 <C:/Users/Research/Documents/Git_Github/Statistica
+lAnalysis/figure/BoxCoxhistplots1.pdf> <C:/Users/Research/Documents/Git_Github/
+StatisticalAnalysis/figure/BoxCoxhistplots2.pdf> <C:/Users/Research/Documents/G
+it_Github/StatisticalAnalysis/figure/BoxCoxhistplots3.pdf> <C:/Users/Research/D
+ocuments/Git_Github/StatisticalAnalysis/figure/BoxCoxhistplots4.pdf>] [11 <C:/U
+sers/Research/Documents/Git_Github/StatisticalAnalysis/figure/poro_norm_fit.pdf
+>]
+Package color Info: Redefining color shadecolor on input line 326.
 
-! Package inputenc Error: Unicode char \u8:° not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.331 ...rmal graident varies from less than 15 °
-                                                  C/km to more than 50°C/km...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! Package inputenc Error: Unicode char \u8:° not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.331 ...rom less than 15 °C/km to more than 50°
-                                                  C/km on a regional basis. ...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! Package inputenc Error: Unicode char \u8:° not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.331 ...have an average thermal gradient of 23 °
-                                                  C/km. They suggest a geoth...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-
-! Package inputenc Error: Unicode char \u8:° not set up for use with LaTeX.
-
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.331 ... suggest a geothermal gradient of 28.9 °
-                                                  C/km from the depth of 390...
-
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-Package color Info: Redefining color shadecolor on input line 336.
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 336.
+               Default added (so using `tbp') on input line 326.
 
-<figure/geothermal_gradient.pdf, id=144, 505.89pt x 505.89pt>
+<figure/geothermal_gradient.pdf, id=140, 505.89pt x 505.89pt>
 File: figure/geothermal_gradient.pdf Graphic file (type pdf)
 
 <use figure/geothermal_gradient.pdf>
-Package pdftex.def Info: figure/geothermal_gradient.pdf used on input line 338.
+Package pdftex.def Info: figure/geothermal_gradient.pdf used on input line 328.
 
 (pdftex.def)             Requested size: 390.0pt x 390.00737pt.
-Package color Info: Redefining color shadecolor on input line 351.
+Package color Info: Redefining color shadecolor on input line 341.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 351.
+               Default added (so using `tbp') on input line 341.
 
-<figure/bootstrap_plot.pdf, id=145, 505.89pt x 505.89pt>
+<figure/bootstrap_plot.pdf, id=141, 505.89pt x 505.89pt>
 File: figure/bootstrap_plot.pdf Graphic file (type pdf)
 
 <use figure/bootstrap_plot.pdf>
-Package pdftex.def Info: figure/bootstrap_plot.pdf used on input line 353.
+Package pdftex.def Info: figure/bootstrap_plot.pdf used on input line 343.
 (pdftex.def)             Requested size: 390.0pt x 390.00737pt.
- [13] [14 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/ge
-othermal_gradient.pdf>] [15 <C:/Users/Research/Documents/Git_Github/Statistical
+ [12] [13 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/ge
+othermal_gradient.pdf>] [14 <C:/Users/Research/Documents/Git_Github/Statistical
 Analysis/figure/bootstrap_plot.pdf>]
-<./figure/schematic.pdf, id=171, 524.5275pt x 173.98329pt>
+<./figure/schematic.pdf, id=167, 524.5275pt x 173.98329pt>
 File: ./figure/schematic.pdf Graphic file (type pdf)
 
 <use ./figure/schematic.pdf>
-Package pdftex.def Info: ./figure/schematic.pdf used on input line 371.
+Package pdftex.def Info: ./figure/schematic.pdf used on input line 361.
 (pdftex.def)             Requested size: 292.5pt x 97.02379pt.
- [16 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/schemat
+ [15 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/schemat
 ic.pdf>]
-Package color Info: Redefining color shadecolor on input line 415.
+Package color Info: Redefining color shadecolor on input line 405.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 415.
+               Default added (so using `tbp') on input line 405.
 
-<figure/dip_angle.pdf, id=239, 505.89pt x 505.89pt>
+<figure/dip_angle.pdf, id=235, 505.89pt x 505.89pt>
 File: figure/dip_angle.pdf Graphic file (type pdf)
  <use figure/dip_angle.pdf>
-Package pdftex.def Info: figure/dip_angle.pdf used on input line 418.
+Package pdftex.def Info: figure/dip_angle.pdf used on input line 408.
 (pdftex.def)             Requested size: 284.53154pt x 284.53154pt.
 
-[17] [18 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/dip
+[16] [17 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/dip
 _angle.pdf>]
-Package color Info: Redefining color shadecolor on input line 436.
+Package color Info: Redefining color shadecolor on input line 426.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 436.
+               Default added (so using `tbp') on input line 426.
 
-<figure/injectionTemp.pdf, id=255, 505.89pt x 505.89pt>
+<figure/injectionTemp.pdf, id=251, 505.89pt x 505.89pt>
 File: figure/injectionTemp.pdf Graphic file (type pdf)
 
 <use figure/injectionTemp.pdf>
-Package pdftex.def Info: figure/injectionTemp.pdf used on input line 439.
+Package pdftex.def Info: figure/injectionTemp.pdf used on input line 429.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-<./figure/DHE.pdf, id=256, 501.78105pt x 377.94821pt>
+<./figure/DHE.pdf, id=252, 501.78105pt x 377.94821pt>
 File: ./figure/DHE.pdf Graphic file (type pdf)
  <use ./figure/DHE.pdf>
-Package pdftex.def Info: ./figure/DHE.pdf used on input line 453.
+Package pdftex.def Info: ./figure/DHE.pdf used on input line 443.
 (pdftex.def)             Requested size: 292.5pt x 220.32314pt.
 
-[19 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/injectio
-nTemp.pdf>] [20 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/fig
+[18 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/figure/injectio
+nTemp.pdf>] [19 <C:/Users/Research/Documents/Git_Github/StatisticalAnalysis/fig
 ure/DHE.pdf>]
-Package color Info: Redefining color shadecolor on input line 467.
+Package color Info: Redefining color shadecolor on input line 457.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 467.
+               Default added (so using `tbp') on input line 457.
 
-<figure/flowrate.pdf, id=412, 505.89pt x 505.89pt>
+<figure/flowrate.pdf, id=408, 505.89pt x 505.89pt>
 File: figure/flowrate.pdf Graphic file (type pdf)
  <use figure/flowrate.pdf>
-Package pdftex.def Info: figure/flowrate.pdf used on input line 470.
+Package pdftex.def Info: figure/flowrate.pdf used on input line 460.
 (pdftex.def)             Requested size: 199.17207pt x 199.17207pt.
 
-(C:\Users\Research\Documents\Git_Github\StatisticalAnalysis\main.bbl [21 <C:/Us
+(C:\Users\Research\Documents\Git_Github\StatisticalAnalysis\main.bbl [20 <C:/Us
 ers/Research/Documents/Git_Github/StatisticalAnalysis/figure/flowrate.pdf>]
-[22]) [23] (C:\Users\Research\Documents\Git_Github\StatisticalAnalysis\main.aux
-) ) 
+[21]) [22] (C:\Users\Research\Documents\Git_Github\StatisticalAnalysis\main.aux
+)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4570 strings out of 493921
- 63484 string characters out of 3147273
- 124627 words of memory out of 3000000
- 7739 multiletter control sequences out of 15000+200000
- 17350 words of font info for 65 fonts, out of 3000000 for 9000
+ 4567 strings out of 493921
+ 63503 string characters out of 3147273
+ 124326 words of memory out of 3000000
+ 7737 multiletter control sequences out of 15000+200000
+ 17182 words of font info for 64 fonts, out of 3000000 for 9000
  841 hyphenation exceptions out of 8191
  36i,9n,41p,1272b,379s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/P
-rogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program F
-iles/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publi
-c/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfont
-s/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr8
-.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:
-/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program 
-Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Files/MiK
-TeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTeX 2.9/
-fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmtt12.pfb>
-Output written on main.pdf (23 pages, 496544 bytes).
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1
+/public/amsfonts/cm/cmr12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/a
+msfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/c
+m/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.p
+fb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Program Fil
+es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmti10.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on main.pdf (22 pages, 485593 bytes).
 PDF statistics:
- 476 PDF objects out of 1000 (max. 8388607)
+ 469 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  96 words of extra memory for PDF output out of 10000 (max. 10000000)
 

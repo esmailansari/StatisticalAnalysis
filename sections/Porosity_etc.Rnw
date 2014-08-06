@@ -1,14 +1,13 @@
 \section{Porosity, thickness, length and temperature}
-The main underlying assumptions is that the samples represent all the geothermal reservoirs in the Louisiana and sum of the geological processes that has created them, has left them having a normal distribution. Porosity, thickness, length and temperature data (Figure \ref{Fig:histplots}) were transformed using a normal score transform (Figure \ref{Fig:normhistplots}) and a Gaussian distribution is then fitted on them (Figure \ref{Fig:poro_norm_fit}). Distribution fitting results are summarized in Table \ref{Tab:poro_etc_fit}.
+The main underlying assumptions is that the sum of the geological processes that has created porosity, thickness, length and temperature, has left them having a normal distribution. The data (Figure \ref{Fig:histplots}) were transformed using a Box-Cox transform (Figure \ref{Fig:BoxCoxhistplots}) and a Gaussian distribution is then fitted on them (Figure \ref{Fig:poro_BoxCox_fit}). Distribution fitting results are summarized in Table \ref{Tab:poro_etc_fit}.
 
 %-------------------------------------------------
 %                    Porosity
 %-------------------------------------------------
 
-<<echo=FALSE,fig.cap="normalized porosity using normal score transform",fig.height=5>>=
+<<echo=FALSE,fig.cap="Transformed  porosity using Box-Cox transform",fig.height=5>>=
 poro.data$color[poro.data$Source=="Source 1"]<-'red'
 poro.data$color[poro.data$Source=="Source 2"]<-'blue'
-par(opar)
 poro.vec <- sort(porosity)
 P.vec <- (1:length(poro.vec))/(length(poro.vec) + 1)
 poro.ns <- qnorm(P.vec); 
@@ -73,7 +72,7 @@ histplot(temperature,'temperature (C)','red4')
 @
 
 
-<<normhistplots, echo=FALSE,out.width='7cm', out.height='7cm', fig.show='hold',fig.cap="Normalized parameter distributions using normal score transform",fig.lp="Fig:">>=
+<<BoxCoxhistplots, echo=FALSE,out.width='7cm', out.height='7cm', fig.show='hold',fig.cap="Normalized parameter distributions using normal score transform",fig.lp="Fig:">>=
 histplot(poro.ns,'porosity','tan2',8,8)
 histplot(thick.ns,'thickness (m)','khaki4',8)
 histplot(length.ns,'length (m)','plum4',8)
