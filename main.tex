@@ -65,11 +65,14 @@
 \usepackage{gensymb}
 %\journal{Geothermics Journal}
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
+
+{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Installing package into 'C:/Users/Research/Documents/R/win-library/3.1'\\\#\# (as 'lib' is unspecified)}}\end{kframe}
+\end{knitrout}
 
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-
-
 \begin{document}
 %\nocite{*}
 \begin{frontmatter}
@@ -115,10 +118,8 @@ Having said all these limitations, we assume that the data is collected randomly
 
 
 
-
-
-% latex table generated in R 3.0.1 by xtable 1.7-3 package
-% Mon Jul 07 15:54:30 2014
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Tue Aug 05 17:59:48 2014
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrrr}
@@ -140,13 +141,11 @@ Min. & 7.00 & 12.00 & 100.00 & 10.00 & 10200.00 \\
 
 
 
-
-
 We do a t test to compare permeability, porosity and temperature that come from these two data sources. The result of the t test on these parameters are summarized in Table \ref{Tab:t_test}. 
 
 
-% latex table generated in R 3.0.1 by xtable 1.7-3 package
-% Mon Jul 07 15:54:31 2014
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Tue Aug 05 17:59:48 2014
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrr}
@@ -164,11 +163,10 @@ Permeability & 10.74 & -0.62 & 0.55 \\
 
 
 
-
 The true difference in the permeability and porosity mean is equal to zero which indicates that the data that come from the two sources are consistentassuming normality for their underlying theoretical distribution. The t test for the temperature does not reject the null hypothesis indicating that the temperature mean of the groups are different. Nevertheless, this result can be a type two error because the investigation depth of the reports are different. A  two way ANOVA is more appropriate for making final conclusion about temperature.  
 
-% latex table generated in R 3.0.1 by xtable 1.7-3 package
-% Mon Jul 07 15:54:31 2014
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Tue Aug 05 17:59:48 2014
 \begin{table}[ht]
 \centering
 \begin{tabular}{lrrrrr}
@@ -186,17 +184,11 @@ Depth        & 1 & 5185.29 & 5185.29 & 51.83 & 0.0000 \\
 \end{table}
 
 
-
 The two way ANOVA test for temperature is summarized in Table \ref{Tab:temp_anova}. The effect of having different temperature mean is soley due to the depth and not the source confirming the consistency between the reports. Rejecting the null hypothesis for permeability, porosity and temperature also provides some preliminary basis to claim that the hot saline aquifers of the Louisiana have gone through similar depositional environment and diagenetic history.
 
 
 \section{Permeability}
-The geological processes that create permeability in reservoir rocks appear to leave permeability distributed around the geometric mean (log normal distribution). The permeability is available for most of the wells (Figure \ref{Fig:PermDotChart}). The permeability data are transformed using a box-cox transformation (Eq. \ref{Eq:boxcox}). $\lambda$ was found to be 0.06. A log-normal distribution is then fit to the transformed data using \texttt{fitdistrplus} package (Figure \ref{Fig:perm_fit}, Table \ref{Tab:Permfit}).
-
-\begin{equation}
-\label{Eq:boxcox}
-Y^\star=(Y^\lambda-1)/\lambda 
-\end{equation}
+The geological processes that create permeability in reservoir rocks appear to leave permeability distributed around the geometric mean (log normal distribution). The permeability is available for most of the wells (Figure \ref{Fig:PermDotChart}). A log-normal distribution is fit to the permeability using \texttt{fitdistrplus} package (Figure \ref{Fig:perm_fit}, Table \ref{Tab:Permfit}).
 
 
 \begin{knitrout}
@@ -209,13 +201,6 @@ Y^\star=(Y^\lambda-1)/\lambda
 \end{knitrout}
 
 
-
-
-
-
-
-
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
@@ -226,23 +211,21 @@ Y^\star=(Y^\lambda-1)/\lambda
 \end{knitrout}
 
 
-
-% latex table generated in R 3.0.1 by xtable 1.7-3 package
-% Mon Jul 07 15:54:31 2014
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Tue Aug 05 17:59:48 2014
 \begin{table}[ht]
 \centering
 \begin{tabular}{rr}
   \hline
  & permeability.mD \\ 
   \hline
-meanlog & 0.25 \\ 
-  sdlog & 0.08 \\ 
+meanlog & 4.48 \\ 
+  sdlog & 0.88 \\ 
    \hline
 \end{tabular}
 \caption{{Summary of the log-normal fit to the permeability}} 
 \label{Tab:Permfit}
 \end{table}
-
 
 
 \pagebreak
@@ -255,13 +238,16 @@ The main underlying assumptions is that the samples represent all the geothermal
 %                    Porosity
 %-------------------------------------------------
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'opar' not found}}\end{kframe}
+\end{knitrout}
 
 %-------------------------------------------------------
 %                    Average reservoir temperature
 %--------------------------------------------------------
-
 
 
 
@@ -276,11 +262,9 @@ The main underlying assumptions is that the samples represent all the geothermal
 
 
 
-
 %-----------------------------------------------
 %                          Length
 %-----------------------------------------------
-
 
 
 
@@ -297,7 +281,6 @@ The main underlying assumptions is that the samples represent all the geothermal
 \end{knitrout}
 
 
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
@@ -310,7 +293,6 @@ The main underlying assumptions is that the samples represent all the geothermal
 
 \end{knitrout}
 
-
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[]
 
@@ -321,9 +303,8 @@ The main underlying assumptions is that the samples represent all the geothermal
 \end{knitrout}
 
 
-
-% latex table generated in R 3.0.1 by xtable 1.7-3 package
-% Mon Jul 07 15:54:32 2014
+% latex table generated in R 3.1.1 by xtable 1.7-3 package
+% Tue Aug 05 17:59:48 2014
 \begin{table}[ht]
 \centering
 \begin{tabular}{rrrrr}
@@ -337,7 +318,6 @@ mean & 21.88 & 103.42 & 12198.87 & 133.72 \\
 \caption{{Summary of the gaussian fit to the porosity, thickness, length and temperature}} 
 \label{Tab:poro_etc_fit}
 \end{table}
-
 
 
 
@@ -362,10 +342,8 @@ To establish a confidence interval for the calculated geothermal gradient withou
 \end{knitrout}
 
 
-
 %-------------------------------------------------------
 %                Bootstraping thermal gradient
-
 
 
 
@@ -377,8 +355,6 @@ To establish a confidence interval for the calculated geothermal gradient withou
 
 
 \end{knitrout}
-
-
 
 
 
@@ -431,9 +407,7 @@ T_{max} = ({\mu_T-3\sigma_T})+\frac{(\mu_{\tau}-3\sigma_{\tau})(\mu_{L}-3\sigma_
 
 
 
-
 Once $T_{max}$  is found to be ca. 183 $^\circ C$, we can solve Eq. \ref{Eq:DipModel} using a sampling method \citep{kroese2011handbook}. We used Hammersley Sequence Sampling to sample average temperature, geothermal gradient and reservoir's length for finding the dip angle of the layers (Figure \ref{Fig:dip_angle}). The median of the dip angle is ca. 15\degree and . If we exclude the outliers, it is unlikely to have a reservoir with the dip angle of more than ca. 60\degree. The lower quartile is ca. 2.5\degree and the upper quartile is ca. 25\degree.
-
 
 
 
@@ -450,7 +424,6 @@ Once $T_{max}$  is found to be ca. 183 $^\circ C$, we can solve Eq. \ref{Eq:DipM
 
 
 \end{knitrout}
-
 
 
 %-----------------------------------------------
@@ -472,7 +445,6 @@ Injection temperature reduces the temperature of the reservoir. In binary power 
 
 
 \end{knitrout}
-
 
 For downhole heat exchangers, the injection temperature is a function of  its production section's length, its middle length, its injection section's length, input temperature and other factors such as working fluid, casing and tubing diameter, etc (Fig. \ref{Fig:DHEscheme}). A DHE with working fluid injected through the tubing and brine passing the casing is known as WFT (working fluid through tubing) which has higher efficiency compared with other designs. DHE's total length varies between ca. 150 and 300 m which makes the injection temperature varying from ca. 120 down to 40 C respectively for an input temperature of ca. 150 C, and flow rate of ca. 400 m\textsuperscript{3}.day\textsuperscript{-1}, assuming engineering assumptions for other parameters \citep{feng2012numerical}. A uniform distribution can be used for DHE's injection temperature because no 'a priori' knowledge is available. 
 
@@ -504,7 +476,6 @@ Flow rate is also a very important parameter and rate of power generation direct
 
 
 \end{knitrout}
-
 
 Previous DHE designs have single point fluid inlet and single point or a length fluid for outletting the fluid and are insulated from the reservoir \citep{feng2012numerical}. However the new designs are evolving into having a length for production and a length for injection. Also, the DHE's middle (main) length is not isolated from the reservoir (Ildar, personal communication) and its flow rate is lower than conventional heat exchangers (ca. 450 m\textsuperscript{3}.day\textsuperscript{-1} or 5.25 kg.s\textsuperscript{-1}) \citep{feng2012numerical} which seemingly cannot be increased due to DHE's limitations such as sand production, pump capacity, etc. (Ildar, personal communication). 
 

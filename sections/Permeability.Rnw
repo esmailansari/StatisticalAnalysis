@@ -1,10 +1,5 @@
 \section{Permeability}
-The geological processes that create permeability in reservoir rocks appear to leave permeability distributed around the geometric mean (log normal distribution). The permeability is available for most of the wells (Figure \ref{Fig:PermDotChart}). The permeability data are transformed using a box-cox transformation (Eq. \ref{Eq:boxcox}). $\lambda$ was found to be 0.06. A log-normal distribution is then fit to the transformed data using \texttt{fitdistrplus} package (Figure \ref{Fig:perm_fit}, Table \ref{Tab:Permfit}).
-
-\begin{equation}
-\label{Eq:boxcox}
-Y^\star=(Y^\lambda-1)/\lambda 
-\end{equation}
+The geological processes that create permeability in reservoir rocks appear to leave permeability distributed around the geometric mean (log normal distribution). The permeability is available for most of the wells (Figure \ref{Fig:PermDotChart}). A log-normal distribution is fit to the permeability using \texttt{fitdistrplus} package (Figure \ref{Fig:perm_fit}, Table \ref{Tab:Permfit}).
 
 
 <<PermDotChart,fig.height=6,echo=FALSE,warning=FALSE,fig.cap="Wells with reported permeability. Some of the wells may have missing data which is clear from the \\texttt{.csv} file and we don't plot this graph for each parameter to make the report succinct.",fig.lp='Fig:'>>=
@@ -15,29 +10,8 @@ dotchart(permeability,labels=perm.data$label,groups=perm.data$Source,cex=0.8, co
 @
 
 
-<<results='hide',fig.show='hide', echo=FALSE>>=
-opar<-par(no.readonly=TRUE)
-bc <- boxcox(permeability~1)
-lambda <- bc$x[which.max(bc$y)]
-@
-
-<<echo=FALSE,results='hide'>>=
-# Residuals
-## boxCox(permeability~1) # gives lambda = 0.0606
-qq.bc <- qqnorm(sort(permeability^(lambda)),type="l",plot.it=FALSE)
-qq.none <- qqnorm(sort(permeability),plot.it=FALSE)
-qq.log <- qq.log <- qqnorm(sort(log(permeability,10)),
-                           type="l",plot.it=FALSE)
-y.bc <- (qq.bc$y - mean(qq.bc$y))/sd(qq.bc$y)
-y.none <- (qq.none$y - mean(qq.none$y))/sd(qq.none$y)
-y.log <- (qq.log$y - mean(qq.log$y))/sd(qq.log$y)
-y.lim <- range(y.bc,y.log,y.none)
-y.lim[2] <- 4
-x.lim <- range(qq.bc$x,qq.log$x,qq.none$x)
-@
-
 <<perm_fit,echo=FALSE,fig.cap="Fitting a log-normal distribution to the box-cox transformed permeability.",fig.lp="Fig:">>=
-fit.perm <- fitdist(permeability^lambda,"lnorm","mme")
+fit.perm <- fitdist(permeability,"lnorm","mme")
 plot(fit.perm,col='paleturquoise4')
 @
 

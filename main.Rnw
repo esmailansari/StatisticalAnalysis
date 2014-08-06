@@ -21,7 +21,7 @@
 rm(list = ls())
 if (!is.null(dev.list())) dev.off()
 
-packages <- c("RColorBrewer","car", "fitdistrplus", "MASS", "map", "ggplot2", "xtable", "boot","triangle")
+packages <- c("RColorBrewer","car","Hmisc", "fitdistrplus", "MASS", "maps", "ggplot2", "xtable", "boot","triangle")
 
 if (length(setdiff(packages, rownames(installed.packages()))) > 0) {
  install.packages(setdiff(packages, rownames(installed.packages())),,repos =     c('http://rforge.net', 'http://cran.rstudio.org'), type = 'source')  
@@ -32,7 +32,7 @@ suppressPackageStartupMessages(require(car))
 suppressPackageStartupMessages(require(fitdistrplus))
 suppressPackageStartupMessages(require(MASS))
 suppressPackageStartupMessages(require(Hmisc))
-suppressPackageStartupMessages(require(map))
+suppressPackageStartupMessages(require(maps))
 suppressPackageStartupMessages(require(ggplot2))
 suppressPackageStartupMessages(require(xtable))
 suppressPackageStartupMessages(require(boot))
