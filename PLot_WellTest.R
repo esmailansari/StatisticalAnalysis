@@ -10,6 +10,7 @@ data <- read.csv("./Data/Data.csv")
 #--------------------------------------------
 #                   Permeability
 #-------------------------------------------
+opar<-par()
 data$Temperature <- (data$Temp...degree.F.-32)/1.8
 data$Depth <- (data$Depth..ft.*0.3048)
 perm.data<-data[!is.na(data$Permeability..mD.),]
@@ -17,9 +18,6 @@ permeability<-perm.data$Permeability..mD.
 perm.data$color[perm.data$Source=="Source 1"]<-'red'
 perm.data$color[perm.data$Source=="Source 2"]<-'blue'
 par(mar=c(4,10,4,2))
-dotchart(permeability,labels=perm.data$label,groups=perm.data$Source,
-        cex=0.8, color=perm.data$color,xlab="Permeability (md)")
-
 
 fit.perm <- fitdist(perm.data$Permeability..mD.,"lnorm","mme")
 
@@ -60,9 +58,7 @@ porosity  <- poro.data$Porosity
 poro.data$color[poro.data$Source=="Source 1"]<-'red'
 poro.data$color[poro.data$Source=="Source 2"]<-'blue'
 par(mar=c(4,10,4,2))
-dotchart(porosity,labels=poro.data$wellname,
-         groups=poro.data$Source,cex=0.8,
-         color=poro.data$color,xlab='Porosity')
+
 
 
 
@@ -90,10 +86,6 @@ temperature  <- (temp.data$Temp...degree.F.-32)*5/9
 temp.data$color[temp.data$Source=="Source 1"]<-'red'
 temp.data$color[temp.data$Source=="Source 2"]<-'blue'
 par(mar=c(4,10,4,2))
-dotchart(temperature,labels=temp.data$wellname,
-         cex=0.9,color=temp.data$color,
-         xlab="Average temperature (C)",
-         main="Temperature data used in the study")
 
 
 
@@ -122,8 +114,7 @@ thickness  <- thick.data$Average.thickness.ft*0.3048
 thick.data$color[thick.data$Source=="Source 1"]<-'red'
 thick.data$color[thick.data$Source=="Source 2"]<-'blue'
 par(mar=c(4,10,4,2))
-dotchart(thickness,labels=thick.data$wellname,
-         cex=0.8,bg='chocolate4',color=thick.data$color)
+
 
 
 
@@ -152,10 +143,6 @@ length <- sqrt(area)
 #area.data$color[temp.data$Source=="Source 1"]<-'red'
 #area.data$color[temp.data$Source=="Source 2"]<-'blue'
 par(mar=c(4,10,4,2),mfrow=c(1,2))
-dotchart(thickness,labels=thick.data$wellname,
-         cex=0.8,bg='olivedrab',color='olivedrab',xlab='Thickness (m)')
-dotchart(length,cex=0.8,bg='orange',color='orange',xlab='Length (m)')
-
 
 
 length.vec <- sort(length)
@@ -340,4 +327,61 @@ summary(aov(Temperature~Depth*Source, data=temp.data))
 #-----------------------------------------------
 #                   Flow Rate
 #----------------------------------------------
+g1<-ggplot(data=perm.data,aes(Source,Permeability..mD.))+
+  geom_boxplot(aes(fill=Source))+ scale_fill_brewer()+guides(fill=FALSE)
+  
 
+g2<-ggplot(data=perm.data,aes(Source,Porosity))+
+  geom_boxplot(aes(fill=Source))+ geom_jitter() +guides(fill=FALSE) + scale_fill_brewer(palette='Greens')
+
+g3<-ggplot(data=perm.data,aes(Source,Temperature))+
+  geom_boxplot(aes(fill=Source))+ scale_fill_brewer(palette='OrRd')+guides(fill=FALSE)
+  
+# Multiple plot function
+#
+# ggplot objects can be passed in ..., or to plotlist (as a list of ggplot objects)
+# - cols:   Number of columns in layout
+# - layout: A matrix specifying the layout. If present, 'cols' is ignored.
+#
+# If the layout is something like matrix(c(1,2,3,3), nrow=2, byrow=TRUE),
+# then plot 1 will go in the upper left, 2 will go in the upper right, and
+# 3 will go all the way across the bottom.
+#
+multiplot <- function(..., plotlist=NULL, file, cols=1, layout=NULL) {
+  require(grid)
+  
+  # Make a list from the ... arguments and plotlist
+  plots <- c(list(...), plotlist)
+  
+  numPlots = length(plots)
+  
+  # If layout is NULL, then use 'cols' to determine layout
+  if (is.null(layout)) {
+    # Make the panel
+    # ncol: Number of columns of plots
+    # nrow: Number of rows needed, calculated from # of cols
+    layout <- matrix(seq(1, cols * ceiling(numPlots/cols)),
+                     ncol = cols, nrow = ceiling(numPlots/cols))
+  }
+  
+  if (numPlots==1) {
+    print(plots[[1]])
+    
+  } else {
+    # Set up the page
+    grid.newpage()
+    pushViewport(viewport(layout = grid.layout(nrow(layout), ncol(layout))))
+    
+    # Make each plot, in the correct location
+    for (i in 1:numPlots) {
+      # Get the i,j matrix positions of the regions that contain this subplot
+      matchidx <- as.data.frame(which(layout == i, arr.ind = TRUE))
+      
+      print(plots[[i]], vp = viewport(layout.pos.row = matchidx$row,
+                                      layout.pos.col = matchidx$col))
+    }
+  }
+}
+
+
+multiplot(g1,g2,g3,cols=3)
